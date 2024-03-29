@@ -1,9 +1,19 @@
-import React from 'react'
+"use client";
+
+import { useAppSelector } from "@/store/hooks";
+import React from "react";
 
 function Player() {
+  const currentStation = useAppSelector(
+    (state) => state.playerReducer.currentStation
+  );
+
   return (
-    <div>Player</div>
-  )
+    <div>
+      Player
+      <pre>{JSON.stringify(currentStation)}</pre>
+    </div>
+  );
 }
 
-export default Player
+export default Player;

@@ -1,0 +1,60 @@
+export interface IStation {
+  bitrate: number;
+  changeuuid: string;
+  serveruuid: string;
+  clickcount: number;
+  clicktimestamp_iso8601: Date;
+  clicktrend: string;
+  codec: string;
+  country: string;
+  countrycode: string;
+  favicon: string;
+  geo_lat: number;
+  geo_long: number;
+  hls: number;
+  homepage: string;
+  language: string;
+  languagecodes: string;
+  lastchangetime_iso8601: Date;
+  lastcheckok: number;
+  lastcheckoktime_iso8601: Date;
+  lastchecktime_iso8601: Date;
+  lastlocalchecktime_iso8601: Date;
+  name: string;
+  ssl_error: number;
+  state: string;
+  iso_3166_2: string;
+  stationuuid: string;
+  tags: string;
+  tags_arr: string[];
+  url: string;
+  url_resolved: string;
+  votes: number;
+  has_extended_info: boolean;
+}
+
+export interface ICountry {
+  name: string;
+  stationcount: number;
+}
+
+export interface ILanguage {
+  name: string;
+  stationcount: number;
+}
+
+export interface ITag {
+  name: string;
+  stationcount: number;
+}
+
+export interface IStationOptions {
+  offset: number;
+  limit: number;
+  countrycode?: string;
+  language?: string;
+  name?: string;
+  tagList?: string;
+  order?: string;
+  reverse?: boolean;
+}

@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import RadioStationCard from "./RadioStationCard";
 
 function RadioStationList() {
   return (
-    <div>RadioStationList</div>
-  )
+    <div>
+      RadioStationList
+      <RadioStationCard></RadioStationCard>
+    </div>
+  );
 }
 
-export default RadioStationList
+export default RadioStationList;
