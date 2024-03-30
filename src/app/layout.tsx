@@ -1,12 +1,14 @@
+"use clinet";
+
 import Header from "@/components/Header";
 import Player from "@/components/Player";
 import SidebarNav from "@/components/SidebarNav";
 import { Providers } from "@/store/provider";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,12 +22,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={montserrat.className}>
         <Providers>
-          <Header></Header>
-          <SidebarNav></SidebarNav>
-          <Player></Player>
-          {children}
+          <div className="flex flex-row justify-start">
+            <SidebarNav />
+            <div className="flex-1 p-4 text-white">
+              <Header />
+              {children}
+              <Player />
+            </div>
+          </div>
         </Providers>
       </body>
     </html>

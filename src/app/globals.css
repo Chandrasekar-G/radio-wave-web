@@ -24,3 +24,13 @@ body {
     text-wrap: balance;
   }
 }
+
+.gradient {
+  background: linear-gradient(90deg, rgb(70, 187, 199) 0%, rgb(68, 136, 216) 56.25%, rgb(135, 104, 242) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(90deg, rgb(70, 187, 199) 0%, rgb(68, 136, 216) 56.25%, rgb(135, 104, 242) 100%);
+}
