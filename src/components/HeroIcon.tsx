@@ -9,11 +9,11 @@ interface Props {
   outline?: boolean;
 }
 const HeroIcon = (props: Props): JSX.Element => {
-  const { icon, className = "w-6 h-6 text-gray-600", outline = false } = props;
+  const { icon, className, outline = false } = props;
 
   const Icon = outline ? OutlineIcons[icon] : SolidIcons[icon];
 
-  return <Icon className={className} />;
+  return <Icon className={`w-6 h-6 ${className}`} />;
 };
 
 export default HeroIcon;
