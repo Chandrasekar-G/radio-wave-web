@@ -10,7 +10,7 @@ function RadioStationList(props: Props) {
   return (
     <div className="flex flex-wrap w-full">
       {stations?.map((station) => (
-        <RadioStationCard station={station} />
+        <RadioStationCard key={station.changeuuid} station={station} />
       ))}
     </div>
   );
