@@ -16,7 +16,11 @@ export default {
         "2xl": "1400px",
       },
     },
-    extend: {},
+    extend: {
+      colors: {
+        graybg: "#F0F2F2",
+      },
+    },
   },
   plugins: [],
 } satisfies Config;

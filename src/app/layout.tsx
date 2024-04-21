@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={montserrat.className}>
         <Providers>
-          <div className="flex flex-row justify-start">
+          <div className="flex flex-row justify-start min-h-screen">
             <SidebarNav />
             <div className="flex-1 p-4 ">
               <Header />

@@ -12,7 +12,7 @@ function SearchBar() {
         placeholder="Search Stations, Artists, Tags..."
         required
       />
-      <button className="gradient-bg ml-3 text-white py-2 px-4 rounded-2xl">
+      <button className="gradient-bg ml-3 py-2 px-4 rounded-2xl text-white">
         Search
       </button>
     </div>

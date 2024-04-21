@@ -22,7 +22,7 @@ function SidebarNav() {
   );
 
   const wrapperClasses = classNames(
-    "h-screen px-10 pt-8 pb-4 bg-light flex flex-col shadow-lg",
+    "h-auto px-10 pt-8 pb-4 bg-light flex flex-col shadow-lg",
     {
       ["w-70"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,

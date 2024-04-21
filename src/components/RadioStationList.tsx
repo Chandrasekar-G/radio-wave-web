@@ -1,11 +1,17 @@
-import React from "react";
+import { IStation } from "@/types";
 import RadioStationCard from "./RadioStationCard";
 
-function RadioStationList() {
+interface Props {
+  stations: IStation[] | undefined;
+}
+
+function RadioStationList(props: Props) {
+  const { stations } = props;
   return (
-    <div>
-      RadioStationList
-      <RadioStationCard></RadioStationCard>
+    <div className="flex flex-wrap w-full">
+      {stations?.map((station) => (
+        <RadioStationCard station={station} />
+      ))}
     </div>
   );
 }
