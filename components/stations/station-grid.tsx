@@ -1,30 +1,36 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useStations } from '@/lib/hooks/use-stations';
-import { StationCard } from './station-card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search, RefreshCw } from 'lucide-react';
-import { useRadioStore } from '@/lib/store/radio-store';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Station } from '@/lib/types';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useStations } from "@/lib/hooks/use-stations";
+import { StationCard } from "./station-card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, RefreshCw } from "lucide-react";
+import { useRadioStore } from "@/lib/store/radio-store";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Station } from "@/lib/types";
+import { usePathname } from "next/navigation";
 
 export function StationGrid() {
   const pathname = usePathname();
   const { activeFilters, favorites = [] } = useRadioStore();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
-  const [sortBy, setSortBy] = useState<string>('popularity');
-  
-  const showFavorites = pathname === '/favorites';
-  
-  const { 
-    stations = [], 
-    isLoading, 
-    isError, 
-    refetch 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [sortBy, setSortBy] = useState<string>("popularity");
+
+  const showFavorites = pathname === "/favorites";
+
+  const {
+    data: stations,
+    isLoading,
+    isError,
+    refetch,
   } = useStations({
     search: debouncedQuery,
     country: activeFilters.country,
@@ -32,31 +38,29 @@ export function StationGrid() {
     tag: activeFilters.tag,
     popularity: activeFilters.popular,
   });
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(searchQuery);
     }, 500);
-    
+
     return () => clearTimeout(timer);
   }, [searchQuery]);
-  
-  const displayedStations = showFavorites 
-    ? favorites 
-    : (stations || []);
-    
+
+  const displayedStations = showFavorites ? favorites : stations || [];
+
   const sortedStations = [...displayedStations].sort((a, b) => {
     switch (sortBy) {
-      case 'name':
-        return (a.name || '').localeCompare(b.name || '');
-      case 'country':
-        return (a.country || '').localeCompare(b.country || '');
-      case 'popularity':
+      case "name":
+        return (a.name || "").localeCompare(b.name || "");
+      case "country":
+        return (a.country || "").localeCompare(b.country || "");
+      case "popularity":
       default:
         return (b.clickcount || 0) - (a.clickcount || 0);
     }
   });
-  
+
   const renderContent = () => {
     if (isLoading) {
       return (
@@ -65,7 +69,7 @@ export function StationGrid() {
         </div>
       );
     }
-    
+
     if (isError) {
       return (
         <div className="flex flex-col items-center justify-center gap-4 rounded-lg border bg-card p-8 text-center">
@@ -76,7 +80,7 @@ export function StationGrid() {
         </div>
       );
     }
-    
+
     if (showFavorites && sortedStations.length === 0) {
       return (
         <div className="flex flex-col items-center justify-center gap-4 rounded-lg border bg-card p-8 text-center">
@@ -84,12 +88,13 @@ export function StationGrid() {
             You haven't added any favorites yet.
           </p>
           <p className="text-sm text-muted-foreground">
-            Browse stations and click the heart icon to add them to your favorites.
+            Browse stations and click the heart icon to add them to your
+            favorites.
           </p>
         </div>
       );
     }
-    
+
     if (sortedStations.length === 0) {
       return (
         <div className="flex flex-col items-center justify-center gap-4 rounded-lg border bg-card p-8 text-center">
@@ -102,7 +107,7 @@ export function StationGrid() {
         </div>
       );
     }
-    
+
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {sortedStations.map((station) => (
@@ -111,31 +116,31 @@ export function StationGrid() {
       </div>
     );
   };
-  
+
   const getTitle = () => {
-    if (showFavorites) return 'Favorite Stations';
-    
+    if (showFavorites) return "Favorite Stations";
+
     if (activeFilters.country) return `Stations in ${activeFilters.country}`;
     if (activeFilters.language) return `${activeFilters.language} Stations`;
     if (activeFilters.tag) return `${activeFilters.tag} Stations`;
-    
+
     switch (activeFilters.popular) {
-      case 'clickcount':
-        return 'Most Popular Stations';
-      case 'votes':
-        return 'Top Voted Stations';
-      case 'verified':
-        return 'Verified Stations';
+      case "clickcount":
+        return "Most Popular Stations";
+      case "votes":
+        return "Top Voted Stations";
+      case "verified":
+        return "Verified Stations";
       default:
-        return 'Discover Stations';
+        return "Discover Stations";
     }
   };
-  
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 sm:flex-row">
         <h1 className="text-2xl font-bold">{getTitle()}</h1>
-        
+
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -147,7 +152,7 @@ export function StationGrid() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          
+
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="Sort by" />
@@ -158,18 +163,20 @@ export function StationGrid() {
               <SelectItem value="country">Country</SelectItem>
             </SelectContent>
           </Select>
-          
+
           <Button
             variant="outline"
             size="icon"
             onClick={() => refetch()}
             disabled={isLoading}
           >
-            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw
+              className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+            />
           </Button>
         </div>
       </div>
-      
+
       {renderContent()}
     </div>
   );

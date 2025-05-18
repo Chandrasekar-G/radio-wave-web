@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ChevronDown, ChevronRight, DivideIcon as LucideIcon } from 'lucide-react';
-import { useRadioStore } from '@/lib/store/radio-store';
-import { useRouter } from 'next/navigation';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
-import { useFilterOptions } from '@/lib/hooks/use-filter-options';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChevronDown, ChevronRight, LucideIcon } from "lucide-react";
+import { useRadioStore } from "@/lib/store/radio-store";
+import { useRouter } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { useFilterOptions } from "@/lib/hooks/use-filter-options";
 
 interface FilterSectionProps {
   icon: LucideIcon;
   title: string;
   expanded: boolean;
   onToggle: () => void;
-  filterType: 'country' | 'language' | 'tag' | 'popular';
+  filterType: "country" | "language" | "tag" | "popular";
 }
 
 export function FilterSection({
@@ -28,16 +28,16 @@ export function FilterSection({
   const router = useRouter();
   const { setFilter, activeFilters, clearFilter } = useRadioStore();
   const { options = [], isLoading } = useFilterOptions(filterType);
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  const filteredOptions = (options || []).filter(option => 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredOptions = (options || []).filter((option) =>
     option.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const popularOptions = [
-    { name: 'Most Clicked', value: 'clickcount' },
-    { name: 'Most Voted', value: 'votes' },
-    { name: 'Verified', value: 'verified' },
+    { name: "Most Clicked", value: "clickcount" },
+    { name: "Most Voted", value: "votes" },
+    { name: "Verified", value: "verified" },
   ];
 
   const isActiveFilter = (value: string) => {
@@ -50,18 +50,18 @@ export function FilterSection({
     } else {
       setFilter(filterType, value);
     }
-    router.push('/');
+    router.push("/");
   };
 
   const renderItems = () => {
-    if (filterType === 'popular') {
+    if (filterType === "popular") {
       return popularOptions.map((option) => (
         <Button
           key={option.value}
           variant="ghost"
           className={cn(
-            'justify-start px-8 py-2 h-8 text-sm',
-            isActiveFilter(option.value) && 'bg-accent'
+            "justify-start px-8 py-2 h-8 text-sm",
+            isActiveFilter(option.value) && "bg-accent"
           )}
           onClick={() => handleFilterClick(option.value)}
         >
@@ -75,8 +75,8 @@ export function FilterSection({
         key={option.value}
         variant="ghost"
         className={cn(
-          'justify-start px-8 py-2 h-8 text-sm',
-          isActiveFilter(option.value) && 'bg-accent'
+          "justify-start px-8 py-2 h-8 text-sm",
+          isActiveFilter(option.value) && "bg-accent"
         )}
         onClick={() => handleFilterClick(option.value)}
       >
@@ -107,10 +107,10 @@ export function FilterSection({
           <ChevronRight className="h-4 w-4" />
         )}
       </Button>
-      
+
       {expanded && (
         <div className="mt-1">
-          {filterType !== 'popular' && (
+          {filterType !== "popular" && (
             <div className="px-2 py-1">
               <input
                 type="text"
@@ -121,7 +121,7 @@ export function FilterSection({
               />
             </div>
           )}
-          
+
           <ScrollArea className="h-40">
             <div className="flex flex-col py-1">
               {isLoading ? (

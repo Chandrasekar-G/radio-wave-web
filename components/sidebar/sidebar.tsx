@@ -1,14 +1,13 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { Separator } from '@/components/ui/separator';
-import { useRadioStore } from '@/lib/store/radio-store';
-
+import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Separator } from "@/components/ui/separator";
+import { useRadioStore } from "@/lib/store/radio-store";
+import Image from "next/image";
 import {
-  Radio,
   Home,
   Search,
   Music,
@@ -17,10 +16,10 @@ import {
   Languages,
   TrendingUp,
   Settings,
-} from 'lucide-react';
-import { useRouter, usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { FilterSection } from './filter-section';
+} from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { FilterSection } from "./filter-section";
 
 interface SidebarProps {
   className?: string;
@@ -37,20 +36,31 @@ export function Sidebar({ className }: SidebarProps) {
   };
 
   const navItems = [
-    { icon: Home, label: 'Home', href: '/' },
-    { icon: Search, label: 'Search', href: '/search' },
-    { icon: Heart, label: 'Favorites', href: '/favorites', count: favorites.length },
+    { icon: Home, label: "Home", href: "/" },
+    { icon: Search, label: "Search", href: "/search" },
+    {
+      icon: Heart,
+      label: "Favorites",
+      href: "/favorites",
+      count: favorites.length,
+    },
   ];
 
   return (
     <aside
       className={cn(
-        'flex h-full w-64 flex-col border-r bg-card p-4',
+        "flex h-full w-64 flex-col border-r bg-card p-4",
         className
       )}
     >
       <div className="flex items-center gap-2 px-2">
-        <Radio className="h-6 w-6 text-primary" />
+        <Image
+          src="/radio-placeholder.png" // Update path to your actual icon file
+          alt="Radio Web Logo"
+          width={24}
+          height={24}
+          className="text-primary"
+        />
         <h1 className="text-xl font-semibold">Radio Web</h1>
       </div>
 
@@ -59,7 +69,7 @@ export function Sidebar({ className }: SidebarProps) {
           {navItems.map((item) => (
             <Button
               key={item.href}
-              variant={pathname === item.href ? 'secondary' : 'ghost'}
+              variant={pathname === item.href ? "secondary" : "ghost"}
               className="justify-start gap-2"
               onClick={() => router.push(item.href)}
             >
@@ -75,36 +85,36 @@ export function Sidebar({ className }: SidebarProps) {
         </nav>
 
         <Separator className="my-4" />
-        
-        <FilterSection 
-          icon={Globe} 
-          title="Countries" 
-          expanded={expanded === 'countries'} 
-          onToggle={() => toggleExpanded('countries')}
+
+        <FilterSection
+          icon={Globe}
+          title="Countries"
+          expanded={expanded === "countries"}
+          onToggle={() => toggleExpanded("countries")}
           filterType="country"
         />
-        
-        <FilterSection 
-          icon={Languages} 
-          title="Languages" 
-          expanded={expanded === 'languages'} 
-          onToggle={() => toggleExpanded('languages')}
+
+        <FilterSection
+          icon={Languages}
+          title="Languages"
+          expanded={expanded === "languages"}
+          onToggle={() => toggleExpanded("languages")}
           filterType="language"
         />
-        
-        <FilterSection 
-          icon={Music} 
-          title="Genres" 
-          expanded={expanded === 'genres'} 
-          onToggle={() => toggleExpanded('genres')}
+
+        <FilterSection
+          icon={Music}
+          title="Genres"
+          expanded={expanded === "genres"}
+          onToggle={() => toggleExpanded("genres")}
           filterType="tag"
         />
-        
-        <FilterSection 
-          icon={TrendingUp} 
-          title="Popular" 
-          expanded={expanded === 'popular'} 
-          onToggle={() => toggleExpanded('popular')}
+
+        <FilterSection
+          icon={TrendingUp}
+          title="Popular"
+          expanded={expanded === "popular"}
+          onToggle={() => toggleExpanded("popular")}
           filterType="popular"
         />
       </ScrollArea>
@@ -112,7 +122,11 @@ export function Sidebar({ className }: SidebarProps) {
       <div className="mt-auto flex flex-col gap-2">
         <Separator />
         <div className="flex items-center justify-between px-2 py-2">
-          <Button variant="ghost" size="icon" onClick={() => router.push('/settings')}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => router.push("/settings")}
+          >
             <Settings className="h-5 w-5" />
           </Button>
           <ThemeToggle />
