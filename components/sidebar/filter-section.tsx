@@ -27,7 +27,7 @@ export function FilterSection({
 }: FilterSectionProps) {
   const router = useRouter();
   const { setFilter, activeFilters, clearFilter } = useRadioStore();
-  const { options = [], isLoading } = useFilterOptions(filterType);
+  const { data: options = [], isLoading } = useFilterOptions(filterType);
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredOptions = (options || []).filter((option) =>
